@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:scann_qr_code/core/routes/route_name.dart';
-import 'package:scann_qr_code/widgets/scanner_controller.dart';
+import 'package:scann_qr_code/widgets/scan_screen/scanner_controller.dart';
 
 class ScannerFrame extends StatelessWidget {
   final ScannerController scannerController;
@@ -47,3 +47,5 @@ class ScannerFrame extends StatelessWidget {
     );
   }
 }
+
+

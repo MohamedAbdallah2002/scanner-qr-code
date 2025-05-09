@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:hive/hive.dart';
-import 'package:scann_qr_code/widgets/scanner_controller.dart';
+import 'package:scann_qr_code/widgets/scan_screen/scanner_controller.dart';
 import 'package:scann_qr_code/core/routes/route_name.dart';
-import 'package:scann_qr_code/widgets/custom_button_app.dart';
+import 'package:scann_qr_code/widgets/shared/custom_button_app.dart';
+import 'package:scann_qr_code/widgets/shared/horizontal_line.dart';
+import 'package:scann_qr_code/widgets/shared/menu_icon.dart';
+import 'package:scann_qr_code/widgets/shared/page_title.dart';
 
 class ScannerView extends StatefulWidget {
   const ScannerView({super.key});
@@ -14,6 +17,7 @@ class ScannerView extends StatefulWidget {
 
 class _ScannerViewState extends State<ScannerView> {
   final ScannerController _scannerController = ScannerController();
+  Barcode? barcode;
 
   @override
   Widget build(BuildContext context) {
@@ -38,17 +42,11 @@ class _ScannerViewState extends State<ScannerView> {
                 padding: const EdgeInsets.symmetric(vertical: 24),
                 child: Column(
                   children: [
-                    Container(width: 70, height: 5, decoration: BoxDecoration(color: const Color(0xffD9D9D9), borderRadius: BorderRadius.circular(8))),
+                    HorizontalLine(),
                     const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 21.0),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Image.asset("assets/images/icon1.png"),
-                      ),
-                    ),
+                    MenuIcon(src: "assets/images/icon1.png"),
                     const SizedBox(height: 32),
-                    const Text("Scan QR Code", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    PageTitle(txt: "Scan QR Code",),
                     const SizedBox(height: 16),
                     const Text(
                       "Place qr code inside the frame to scan please\navoid shake to get results quickly",
@@ -66,14 +64,24 @@ class _ScannerViewState extends State<ScannerView> {
                             child: MobileScanner(
                               controller: _scannerController.controller,
                               onDetect: (barcodeCapture) async {
-                                final barcode = barcodeCapture.barcodes.firstOrNull;
-                                if (barcode != null) {
+                                _scannerController.controller.stop();
+                                final scanned = barcodeCapture.barcodes.firstOrNull;
+
+                                if (scanned != null) {
+                                  setState(() {
+                                    barcode = scanned;
+                                  });
+
                                   final box = Hive.box<String>('scanned_codes');
                                   if (box.length >= 10) {
                                     await box.deleteAt(0);
                                   }
-                                  await box.add(barcode.rawValue!);
-                                  Navigator.pushReplacementNamed(context, RouteName.scannResult);
+                                  await box.add(scanned.rawValue!);
+
+                                  Future.delayed(const Duration(seconds: 1, milliseconds: 500), () {
+                                    _scannerController.controller.start();
+                                    Navigator.pushReplacementNamed(context, RouteName.scannResult);
+                                  });
                                 }
                               },
                             ),
@@ -133,3 +141,5 @@ class _ScannerViewState extends State<ScannerView> {
     );
   }
 }
+
+

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scann_qr_code/widgets/scanner_controller.dart';
+import 'package:scann_qr_code/widgets/scan_screen/scanner_controller.dart';
 
 class ControlPanel extends StatelessWidget {
   final ScannerController scannerController;

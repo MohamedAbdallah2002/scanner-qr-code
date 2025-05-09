@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:scann_qr_code/core/routes/route_name.dart';
 import 'package:scann_qr_code/core/style/style_text.dart';
-import 'package:scann_qr_code/widgets/custom_button_app.dart';
-import 'package:scann_qr_code/widgets/scan_result_item.dart';
+import 'package:scann_qr_code/widgets/shared/custom_button_app.dart';
+import 'package:scann_qr_code/widgets/result_screen/scan_result_item.dart';
+import 'package:scann_qr_code/widgets/shared/horizontal_line.dart';
+import 'package:scann_qr_code/widgets/shared/menu_icon.dart';
+import 'package:scann_qr_code/widgets/shared/page_title.dart';
 
 class ScannResult extends StatefulWidget {
   const ScannResult({super.key});
@@ -51,24 +54,11 @@ class _ScannResultState extends State<ScannResult> {
                 child: Column(
                   children: [
                     const SizedBox(height: 24),
-                    Container(
-                      width: 70,
-                      height: 5,
-                      decoration: BoxDecoration(
-                        color: const Color(0xffD9D9D9),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
+                    HorizontalLine(),
                     const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 21.0),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Image.asset("assets/images/icon2.png"),
-                      ),
-                    ),
+                    MenuIcon(src: "assets/images/icon2.png"),
                     const SizedBox(height: 32),
-                    Text("Scanning Result", style: AppTextStyles.txt16b),
+                     PageTitle(txt: "Scanning Result",),
                     const SizedBox(height: 16),
                     Text(
                       '''Proreader will keep your last 10 days history.\nTo keep your all scanned history, please\npurchase our pro package.''',
@@ -86,7 +76,7 @@ class _ScannResultState extends State<ScannResult> {
                             final originalIndex = box.length - 1 - index;
 
                             return Dismissible(
-                              key: Key(code + index.toString()),
+                              key: UniqueKey(),
                               direction: DismissDirection.endToStart,
                               background: Container(
                                 alignment: Alignment.centerRight,

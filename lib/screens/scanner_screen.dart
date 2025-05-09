@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:hive/hive.dart';
 import 'package:scann_qr_code/widgets/scanner_controller.dart';
 import 'package:scann_qr_code/core/routes/route_name.dart';
 import 'package:scann_qr_code/widgets/custom_button_app.dart';
@@ -19,11 +20,7 @@ class _ScannerViewState extends State<ScannerView> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            color: Colors.black,
-            width: double.infinity,
-            height: double.infinity,
-          ),
+          Container(color: Colors.black, width: double.infinity, height: double.infinity),
           Positioned(
             top: 100,
             left: 0,
@@ -41,14 +38,7 @@ class _ScannerViewState extends State<ScannerView> {
                 padding: const EdgeInsets.symmetric(vertical: 24),
                 child: Column(
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: const Color(0xffD9D9D9),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      width: 70,
-                      height: 5,
-                    ),
+                    Container(width: 70, height: 5, decoration: BoxDecoration(color: const Color(0xffD9D9D9), borderRadius: BorderRadius.circular(8))),
                     const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.only(right: 21.0),
@@ -58,16 +48,10 @@ class _ScannerViewState extends State<ScannerView> {
                       ),
                     ),
                     const SizedBox(height: 32),
-                    Text(
-                      "Scan QR Code",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    const Text("Scan QR Code", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 16),
-                    Text(
-                      '''Place qr code inside the frame to scan please\navoid shake to get results quickly''',
+                    const Text(
+                      "Place qr code inside the frame to scan please\navoid shake to get results quickly",
                       style: TextStyle(fontSize: 12),
                       textAlign: TextAlign.center,
                     ),
@@ -81,15 +65,15 @@ class _ScannerViewState extends State<ScannerView> {
                             borderRadius: BorderRadius.circular(16),
                             child: MobileScanner(
                               controller: _scannerController.controller,
-                              onDetect: (barcodeCapture) {
-                                final barcode =
-                                    barcodeCapture.barcodes.firstOrNull;
+                              onDetect: (barcodeCapture) async {
+                                final barcode = barcodeCapture.barcodes.firstOrNull;
                                 if (barcode != null) {
-                                  Navigator.pushReplacementNamed(
-                                    context,
-                                    RouteName.scannResult,
-                                    arguments: barcode.rawValue,
-                                  );
+                                  final box = Hive.box<String>('scanned_codes');
+                                  if (box.length >= 10) {
+                                    await box.deleteAt(0);
+                                  }
+                                  await box.add(barcode.rawValue!);
+                                  Navigator.pushReplacementNamed(context, RouteName.scannResult);
                                 }
                               },
                             ),
@@ -100,10 +84,7 @@ class _ScannerViewState extends State<ScannerView> {
                               width: 200,
                               height: 200,
                               decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 2,
-                                ),
+                                border: Border.all(color: Colors.white, width: 2),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),

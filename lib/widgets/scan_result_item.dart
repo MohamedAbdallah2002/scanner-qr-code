@@ -18,11 +18,20 @@ class ScanResultItem extends StatelessWidget {
         child: Row(
           children: [
             const SizedBox(width: 16),
-            Image.asset("assets/images/icon3.png"),
-            const SizedBox(width: 32),
-            Text(
-              code,
-              style: AppTextStyles.txt14f.copyWith(color: Colors.black),
+            Image.asset(
+              "assets/images/icon3.png",
+              width: 24, // Set size for image to prevent overflow
+              height: 24,
+            ),
+            const SizedBox(width: 16), // Reduce spacing here
+            Expanded( // Ensure text does not overflow
+              child: Text(
+                code,
+                style: AppTextStyles.txt14f.copyWith(color: Colors.black),
+                overflow: TextOverflow.ellipsis, // Handles overflow
+                softWrap: false, // Prevent text wrapping
+                maxLines: 1, // Prevent multiple lines if necessary
+              ),
             ),
           ],
         ),

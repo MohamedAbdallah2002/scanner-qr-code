@@ -18,14 +18,7 @@ class ControlPanel extends StatelessWidget {
             await scannerController.startGalleryScan();
           },
         ),
-        const SizedBox(width: 24),
-        IconButton(
-          icon: const Icon(Icons.keyboard_alt_outlined),
-          color: const Color(0xff757575),
-          onPressed: () async {
-            await scannerController.toggleTorch();
-          },
-        ),
+        
         const SizedBox(width: 24),
         IconButton(
           icon: const Icon(Icons.flash_on),

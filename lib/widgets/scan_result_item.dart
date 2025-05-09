@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:scann_qr_code/core/style/style_text.dart';
 

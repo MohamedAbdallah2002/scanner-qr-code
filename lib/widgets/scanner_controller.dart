@@ -13,7 +13,9 @@ class ScannerController {
 
   Future<void> startGalleryScan() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    final XFile? pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
 
     if (pickedFile != null) {
       final File imageFile = File(pickedFile.path);
@@ -22,7 +24,9 @@ class ScannerController {
   }
 
   Future<void> _scanImage(File imageFile) async {
-    final List<Barcode> barcodes = (await MobileScannerController().analyzeImage(imageFile as String)) as List<Barcode>;
+    final List<Barcode> barcodes =
+        (await MobileScannerController().analyzeImage(imageFile as String))
+            as List<Barcode>;
     if (barcodes.isNotEmpty) {
       print('Scanned QR Code: ${barcodes.first.rawValue}');
     } else {

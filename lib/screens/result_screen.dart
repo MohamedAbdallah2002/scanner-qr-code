@@ -85,8 +85,13 @@ class ScannResult extends StatelessWidget {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 54, vertical: 16),
-                      child: CustomButton(txt: "Send", onPressed: () {}),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 54,
+                        vertical: 16,
+                      ),
+                      child: CustomButton(txt: "Send", onPressed: () {
+                        Navigator.pop(context);
+                      }),
                     ),
                   ],
                 ),

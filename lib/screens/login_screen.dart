@@ -46,7 +46,9 @@ class _LoginState extends State<Login> {
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Email is required';
-                        } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                        } else if (!RegExp(
+                          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                        ).hasMatch(value)) {
                           return 'Enter a valid email';
                         }
                         return null;
@@ -70,7 +72,9 @@ class _LoginState extends State<Login> {
                           return 'Must contain at least one lowercase letter';
                         } else if (!RegExp(r'[0-9]').hasMatch(value)) {
                           return 'Must contain at least one number';
-                        } else if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
+                        } else if (!RegExp(
+                          r'[!@#$%^&*(),.?":{}|<>]',
+                        ).hasMatch(value)) {
                           return 'Must contain at least one special character';
                         }
                         return null;
@@ -91,7 +95,10 @@ class _LoginState extends State<Login> {
                       txt: "Login",
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
-                          Navigator.pushReplacementNamed(context, RouteName.scannerView);
+                          Navigator.pushReplacementNamed(
+                            context,
+                            RouteName.scannerView,
+                          );
                         }
                       },
                     ),

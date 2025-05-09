@@ -37,10 +37,7 @@ class ScannerFrame extends StatelessWidget {
               width: 200,
               height: 200,
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white,
-                  width: 2,
-                ),
+                border: Border.all(color: Colors.white, width: 2),
                 borderRadius: BorderRadius.circular(12),
               ),
             ),

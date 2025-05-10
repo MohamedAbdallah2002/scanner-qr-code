@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "942576278680",
+    "project_id": "scanner-app-e1c6d",
+    "storage_bucket": "scanner-app-e1c6d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942576278680:android:aab87ca87d106c6adf04ed",
+        "android_client_info": {
+          "package_name": "com.example.scann_qr_code"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3BpOYqTICeyqBodhLUEHGms5uSUDyDGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942576278680:android:816db229ee503e77df04ed",
+        "android_client_info": {
+          "package_name": "com.example.task"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3BpOYqTICeyqBodhLUEHGms5uSUDyDGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

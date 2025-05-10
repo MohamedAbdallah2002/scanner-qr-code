@@ -25,13 +25,27 @@ class _LoginFormState extends State<LoginForm> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Form(
         key: formKey,
-
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomTextFormField(controller: email, label: "Email"),
+              CustomTextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  return null;
+                },
+                controller: email,
+                label: "Email",
+              ),
               const SizedBox(height: 8),
               CustomTextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  return null;
+                },
                 controller: password,
                 label: "Password",
                 obscureText: true,
@@ -49,23 +63,22 @@ class _LoginFormState extends State<LoginForm> {
               CusttomButton(
                 txt: "Login",
                 onPressed: () async {
-                  Navigator.pushNamed(context, RouteName.scannerView);
-                  try {
-                    
-                    final credential = await FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
-                          email:email.text,
-                          password: password.text,
-                        );
-                    print(credential);
-                  } on FirebaseAuthException catch (e) {
-                    if (e.code == 'user-not-found') {
-                      print('No user found for that email.');
-                    } else if (e.code == 'wrong-password') {
-                      print('Wrong password provided for that user.');
+                  if (formKey.currentState!.validate()) {
+                    try {
+                      await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: email.text,
+                        password: password.text,
+                      );
+                      Navigator.pushReplacementNamed(context, RouteName.scannerView);
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'user-not-found') {
+                        print('No user found for that email.');
+                      } else if (e.code == 'wrong-password') {
+                        print('Wrong password provided for that user.');
+                      }
                     }
                   }
-                  
+
                   // Handle login action
                 },
               ),

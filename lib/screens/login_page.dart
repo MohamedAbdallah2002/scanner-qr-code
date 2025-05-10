@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:scann_qr_code/widgets/login_screen/login_form.dart';
 import 'package:scann_qr_code/widgets/login_screen/login_header.dart';
@@ -8,15 +9,14 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            LoginHeader(),
-            const SizedBox(height: 20),
-            LoginForm(),
-            Spacer(),
-          ],
-        ),
+      body: Column(
+        children: [
+          LoginHeader(),
+          Spacer(),
+          LoginForm(),
+          Spacer(),
+
+        ],
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:scann_qr_code/widgets/login_screen/login_form.dart';
 import 'package:scann_qr_code/widgets/login_screen/login_header.dart';
